@@ -20,7 +20,7 @@
                         <a class="nav-link" href="Index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Cadastrar novo</a>
+                        <a class="nav-link" href="cadastro_pedido.php">Cadastrar novo</a>
                     </li>
 
                 </ul>
