@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+require './model/pedidos.php';
+?>
 
 <html>
     <head>
@@ -39,27 +42,29 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <div class="row">
-                            <div class="input-group mb-3 col">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Cliente</span>
+                        <form action="index.php" method="post">
+                            <div class="row">
+                                <div class="input-group mb-3 col">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Cliente</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="cliente">
                                 </div>
-                                <input type="text" class="form-control">
+
+
+                                <div class="form-group col">
+                                    <select class="form-control" name="status">
+                                        <option value="">-- Selecione o Status -- </option>
+                                        <option value="Finalizado">Finalizado</option>
+                                        <option value="Cancelado">Cancelado</option>
+                                        <option value="Emitido">Emitido</option>
+
+                                    </select>
+
+                                </div>
+                                <button class="btn btn -primary"type="submit">Filtrar</button>
                             </div>
-
-
-                            <div class="form-group col">
-                                <select class="form-control">
-                                    <option> -- Slecione o Status -- </option>
-                                    <option>Finalizado</option>
-                                    <option>Cancelado</option>
-                                    <option>Emitido</option>
-
-                                </select>
-
-                            </div>
-                            <button class="btn btn -primary">Filtrar</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
 
@@ -78,15 +83,24 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>1010</td>
-                            <td>ABC</td>
-                            <td>10/10/2010</td>
-                            <td>Emitido</td>
-                            <td>11/10/2010 12:20:20</td>
-                            <td>Adriano</td>
 
-                        </tr>
+                        <?php
+                        $cliente = $_POST ['cliente'];
+                        $status = $_POST['status'];
+
+                        $pedidos = listaPedidos($cliente, $status);
+
+                        foreach ($pedidos as $pedido) {
+                            echo "      <tr>";
+                            echo "          <td>" . $pedido ['num_pedido'] . "</td>";
+                            echo "          <td>" . $pedido ['cliente'] . "</td>";
+                            echo "          <td>" . $pedido ['data_pedido'] . "</td>";
+                            echo "          <td>" . $pedido ['status'] . "</td>";
+                            echo "          <td>" . $pedido ['data_atualizacao'] . "</td>";
+                            echo "          <td>  xxx </td>";
+                            echo "          </tr>";
+                        }
+                        ?>                 
                     </tbody>
                 </table>
             </div>
