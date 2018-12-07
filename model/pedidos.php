@@ -1,39 +1,35 @@
 <?php
+
 /**
  * lista todos os pedidos pelo filtro aplicado
  * @param string $cliente
  * @param string $status
  * @return array
  */
+function listaPedidos($cliente = '', $status = '') {
+    $user = "root";
+    $senha = "elaborata";
 
+    $dsn = 'mysql:host=localhost;dbname=logistica;port=3306';
 
+    $pdo = new PDO($dsn, $user, $senha);
 
-
-function listaPedidos($cliente='', $status= '')
-{
-$user = "root";
-$senha = "elaborata";
-
-$dsn = 'mysql:host=localhost;dbname=logistica;port=3306';
-
-$pdo = new PDO($dsn, $user, $senha);
-
-
-if ($cliente != '')
-{
-    $filtro = "WHERE cliente = '$cliente' ";
-} else {
     $filtro = "";
-} if ($status != '')
-{
-    $filtro = "WHERE status = '$status'";
-} else {
-    $filtro = "";
-}
-$sql = "SELECT * FROM pedidos ORDER BY data_atualizacao DESC";
-$res = $pdo->query($sql);
-$dados = $res->fetchAll(PDO::FETCH_ASSOC);
+    if ($cliente != '') {
+        $filtro = "WHERE cliente LIKE '$cliente%'";
+    }
 
-return $dados;
+    if ($status != '' && $filtro != "") {
+        $filtro = $filtro . "AND status = '$status'";
+    } elseif ($status != '' && $filtro != "") {
+        $filtro = $filtro . "WHERE status = '$status'";
+    }
 
+    $sql = "SELECT * FROM pedidos $filtro ORDER BY data_atualizacao DESC";
+    echo $sql;
+
+    $res = $pdo->query($sql);
+    $dados = $res->fetchAll(PDO::FETCH_ASSOC);
+
+    return $dados;
 }

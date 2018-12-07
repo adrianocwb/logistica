@@ -85,8 +85,10 @@ require './model/pedidos.php';
                     <tbody>
 
                         <?php
-                        $cliente = $_POST ['cliente'];
-                        $status = $_POST['status'];
+                        var_dump($_POST);
+
+                        $cliente = (isset($_POST ['cliente'])) ? $_POST['cliente'] : "";
+                        $status = (isset($_POST ['status'])) ? $_POST['status'] : "";
 
                         $pedidos = listaPedidos($cliente, $status);
 
