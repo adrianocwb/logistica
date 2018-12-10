@@ -69,7 +69,7 @@
                         <div class="form-group">
                             <label class="control-label" for="data_pedido">Data do Pedido</label>  
                             <div class="">
-                                <input id="data_pedido" name="data_pedido" type="text" placeholder="" class="form-control input-md" required="">
+                                <input id="data_pedido" name="data_pedido" type="date" placeholder="" class="form-control input-md" required="">
 
                             </div>
                         </div>

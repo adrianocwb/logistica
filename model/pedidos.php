@@ -1,15 +1,15 @@
 <?php
 
-function conectar()
-{    
+function conectar() {
     $user = "root";
     $senha = "elaborata";
 
     $dsn = 'mysql:host=localhost;dbname=logistica;port=3306';
 
     $pdo = new PDO($dsn, $user, $senha);
-    return $pdo
+    return $pdo;
 }
+
 /**
  * lista todos os pedidos pelo filtro aplicado
  * @param string $cliente
@@ -18,7 +18,8 @@ function conectar()
  */
 function listaPedidos($cliente = '', $status = '') {
 
-        $pdo = conectar()
+
+
 
     $filtro = "";
     if ($cliente != '') {
@@ -39,7 +40,23 @@ function listaPedidos($cliente = '', $status = '') {
 
     return $dados;
 }
-function cadastrarPedido()
-{
-    
+
+function cadastrarPedido($numero, $cliente, $data, $status) {
+    $pdo = conectar();
+
+    $sql = "INSERT INTO `pedidos` (`id`, `num_pedido`, `cliente`, 
+    `data_pedido`,`status`, `data_atualizacao`) VALUES 
+    (NULL, '$numero', '$cliente', '$data', 
+    '$status', now())";
+
+    //echo $sql;
+    $total = $pdo->exec($sql);
+
+    return $total
 }
+
+function deletarPedidos($id)
+
+$pdo = conectar();
+$sql = "DELETE FROM `pedidos` WHERE `pedidos`.`id` = id";
+$total = $pdo->exec($sql);

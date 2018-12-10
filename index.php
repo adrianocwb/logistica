@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
 require './model/pedidos.php';
+
+$msg = (isset($_GET['msg']))?$_GET['msg']: '';
 ?>
 
 <html>
@@ -38,6 +40,11 @@ require './model/pedidos.php';
 
             <div class="starter-template">
                 <h1>Ultimos Pedidos</h1>
+              
+
+                <div class="alert alert-primary" role="alert">
+                    A simple primary alert—check it out!
+                </div>
 
                 <div class="card">
 
@@ -79,6 +86,7 @@ require './model/pedidos.php';
                             <th>Status</th>
                             <th>Data da atualização</th>
                             <th>Usuário Atualização</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
 
@@ -100,6 +108,7 @@ require './model/pedidos.php';
                             echo "          <td>" . $pedido ['status'] . "</td>";
                             echo "          <td>" . $pedido ['data_atualizacao'] . "</td>";
                             echo "          <td>  xxx </td>";
+                            echo '          <td>  < a href="controller/deletar_pedido.php?id='. $pedido['id'] .'">[X] </a> </td>';
                             echo "          </tr>";
                         }
                         ?>                 
