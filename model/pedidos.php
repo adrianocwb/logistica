@@ -1,5 +1,15 @@
 <?php
 
+function conectar()
+{    
+    $user = "root";
+    $senha = "elaborata";
+
+    $dsn = 'mysql:host=localhost;dbname=logistica;port=3306';
+
+    $pdo = new PDO($dsn, $user, $senha);
+    return $pdo
+}
 /**
  * lista todos os pedidos pelo filtro aplicado
  * @param string $cliente
@@ -7,12 +17,8 @@
  * @return array
  */
 function listaPedidos($cliente = '', $status = '') {
-    $user = "root";
-    $senha = "elaborata";
 
-    $dsn = 'mysql:host=localhost;dbname=logistica;port=3306';
-
-    $pdo = new PDO($dsn, $user, $senha);
+        $pdo = conectar()
 
     $filtro = "";
     if ($cliente != '') {
@@ -32,4 +38,8 @@ function listaPedidos($cliente = '', $status = '') {
     $dados = $res->fetchAll(PDO::FETCH_ASSOC);
 
     return $dados;
+}
+function cadastrarPedido()
+{
+    
 }
