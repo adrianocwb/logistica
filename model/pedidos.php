@@ -1,15 +1,6 @@
 <?php
 
-function conectar()
-{
-    $user = "root";
-    $senha = "elaborata";
-
-    $dsn = 'mysql:host=localhost;dbname=logistica;port=3306';
-
-    $pdo = new PDO($dsn, $user, $senha);
-    return $pdo;
-}
+require_once 'db.php';
 
 /**
  * Lista todos os pedidos pelo filtro aplicado
@@ -70,12 +61,51 @@ function cadastrarPedido($numero, $cliente, $data, $status)
     return $total;
 }
 
+/**
+ * Deleta o pedido informado
+ * @param int $id
+ * @return int
+ */
 function deletarPedido($id)
 {
     $pdo = conectar();
     
     $sql = "DELETE FROM pedidos WHERE id = $id";
     
+    $total = $pdo->exec($sql);
+    
+    return $total;
+    
+}
+
+
+/**
+ * Retorna os dados de um pedido cadastrado
+ * @param int $id
+ */
+
+
+/**
+ * Altera os dados do pedido informado
+ * @param int $id
+ * @param int $num_pedido
+ * @param string $cliente
+ * @param string $data
+ * @param string $status
+ */
+function atualizarPedido($id, $num_pedido, $cliente, $data, $status)
+{
+    $pdo = conectar();
+    $agora = date("Y-m-d H:i:s");
+    
+    $sql = "UPDATE pedidos SET "
+            . "status = '$status',"
+            .  "num_pedido = '$num_pedido', "
+            . "cliente = '$cliente',"
+            . "data_pedido = '$data',"
+            . "data_atualizacao = '$agora' "
+            . " WHERE id = $id";
+   
     $total = $pdo->exec($sql);
     
     return $total;
